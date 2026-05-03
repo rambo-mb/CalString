@@ -1,28 +1,42 @@
-﻿// v2
-// 1+2-3
-// addition and subtraction with all numbers are single digit number
+﻿// v3
+// 1+2*3
+// addition, subtraction, multiplication and division with all numbers are single digit number
 
 Console.Write("Ifodani kiriting: ");
 string expression = Console.ReadLine();
 
 int sum = 0;
-int index = 0;
+int lastNumber = expression[0] - '0';
 
-while(index < expression.Length)
+for(int index = 1; index < expression.Length; index += 2)
 {
-	if(index == 0)
+	switch(expression[index])
 	{
-		sum += Convert.ToInt32(expression[index].ToString());
+		case '+':
+			{
+				sum += lastNumber;
+				lastNumber = expression[index+1] - '0';
+				break;
+			}
+		case '-':
+			{
+				sum += lastNumber;
+				lastNumber = -(expression[index+1] - '0');
+				break;
+			}
+		case '*':
+			{
+				lastNumber *= expression[index+1] - '0';
+				break;
+			}
+		case '/':
+			{
+				lastNumber /= expression[index+1] - '0';
+				break;
+			}
 	}
-	else if (expression[index-1] == '+'){
-		sum += Convert.ToInt32(expression[index].ToString());
-	}
-	else if (expression[index-1] == '-')
-	{
-		sum -= Convert.ToInt32(expression[index].ToString());
-	}
-	
-	index += 2;
 }
+
+sum += lastNumber;
 
 Console.WriteLine($"{expression}={sum}");

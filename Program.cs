@@ -1,45 +1,88 @@
-﻿// v4
-// 12*45
-// addition, subtraction, multiplication and division with 2 numbers are multi digit number
+﻿// v5
+// 12*45/2+23
+// addition, subtraction, multiplication and division with multi numbers are multi digit number
 
-Console.Write("Ifodani kiritng: ");
+Console.Write("Ifodani kiriting: ");
 string expression = Console.ReadLine();
 
-int index = 0;
+int sum = 0;
+int lastNumber = 0;
+int currentNumber = 0;
+char operation = '+';
 
-while (index < expression.Length)
+for(int index = 0; index < expression.Length; index++)
 {
-	char operationStr = expression[index];
-	switch (operationStr)
+	switch(expression[index])
 	{
 		case '+':
-			{
-				decimal firstNumber = Convert.ToDecimal(expression.Substring(0, index));
-				decimal secondNumber = Convert.ToDecimal(expression.Substring(index+1));
-				Console.WriteLine($"{firstNumber} + {secondNumber} = {firstNumber + secondNumber}");
-				break;
-			}
 		case '-':
-			{
-				decimal firstNumber = Convert.ToDecimal(expression.Substring(0, index));
-				decimal secondNumber = Convert.ToDecimal(expression.Substring(index+1));
-				Console.WriteLine($"{firstNumber} - {secondNumber} = {firstNumber - secondNumber}");
-				break;
-			}
+		case '*':
 		case '/':
 			{
-				decimal firstNumber = Convert.ToDecimal(expression.Substring(0, index));
-				decimal secondNumber = Convert.ToDecimal(expression.Substring(index+1));
-				Console.WriteLine($"{firstNumber} / {secondNumber} = {firstNumber / secondNumber}");
+				switch (operation)
+				{
+					case '+':
+						{
+							sum += lastNumber;
+							lastNumber = currentNumber;
+							break;
+						}
+					case '-':
+						{
+							sum += lastNumber;
+							lastNumber = -currentNumber;
+							break;
+						}
+					case '*':
+						{
+							lastNumber *= currentNumber;
+							break;
+						}
+					case '/':
+						{
+							lastNumber /= currentNumber;
+							break;
+						}
+				}
+
+				operation = expression[index];
+				currentNumber = 0;
 				break;
 			}
-		case '*':
+		default:
 			{
-				decimal firstNumber = Convert.ToDecimal(expression.Substring(0, index));
-				decimal secondNumber = Convert.ToDecimal(expression.Substring(index+1));
-				Console.WriteLine($"{firstNumber} * {secondNumber} = {firstNumber * secondNumber}");
+				currentNumber = currentNumber * 10 + (expression[index] - '0');
 				break;
 			}
 	}
-	index++;
 }
+
+switch (operation)
+{
+	case '+':
+		{
+			sum += lastNumber;
+			lastNumber = currentNumber;
+			break;
+		}
+	case '-':
+		{
+			sum += lastNumber;
+			lastNumber = -currentNumber;
+			break;
+		}
+	case '*':
+		{
+			lastNumber *= currentNumber;
+			break;
+		}
+	case '/':
+		{
+			lastNumber /= currentNumber;
+			break;
+		}
+}
+
+sum += lastNumber;
+
+Console.WriteLine($"{expression}={sum}");

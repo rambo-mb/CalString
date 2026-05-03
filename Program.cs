@@ -1,6 +1,6 @@
-﻿// v1
-// 1+2+3
-// only addition and all numbers are single digit number
+﻿// v2
+// 1+2-3
+// addition and subtraction with all numbers are single digit number
 
 Console.Write("Ifodani kiriting: ");
 string expression = Console.ReadLine();
@@ -10,7 +10,18 @@ int index = 0;
 
 while(index < expression.Length)
 {
-	sum += Convert.ToInt32(expression[index].ToString());
+	if(index == 0)
+	{
+		sum += Convert.ToInt32(expression[index].ToString());
+	}
+	else if (expression[index-1] == '+'){
+		sum += Convert.ToInt32(expression[index].ToString());
+	}
+	else if (expression[index-1] == '-')
+	{
+		sum -= Convert.ToInt32(expression[index].ToString());
+	}
+	
 	index += 2;
 }
 

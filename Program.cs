@@ -38,7 +38,7 @@ while(true)
       {
 				while(index < expression.Length)
 				{
-					sum += Convert.ToInt32(expression[index].ToString());
+					sum += expression[index] - '0';
 					index += 2;
 				}
 
@@ -50,14 +50,14 @@ while(true)
 				{
 					if(index == 0)
 					{
-						sum += Convert.ToInt32(expression[index].ToString());
+						sum += expression[index] - '0';
 					}
 					else if (expression[index-1] == '+'){
-						sum += Convert.ToInt32(expression[index].ToString());
+						sum += expression[index] - '0';
 					}
 					else if (expression[index-1] == '-')
 					{
-						sum -= Convert.ToInt32(expression[index].ToString());
+						sum -= expression[index] - '0';
 					}
 					
 					index += 2;

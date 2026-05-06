@@ -13,6 +13,8 @@ String ko'rinishidagi matematik ifodalarni hisoblash dasturi
 | **V3**  | To'rt amal (`+ - * /`), bir xonali sonlar | `2+3*4-6/2`    |
 | **V4**  | To'rt amal, **2 ta** ko'p xonali son      | `123+456`      |
 | **V5**  | To'rt amal, **ko'p** ko'p xonali sonlar   | `12*45/2+23-7` |
+| **V6**  | Qavslarni qo'llab-quvvatlash              | `(2+3)*4`      |
+| **V7**  | Daraja (`^`) amali                        | `2*3^2+1`      |
 
 ---
 
@@ -37,6 +39,14 @@ String ko'rinishidagi matematik ifodalarni hisoblash dasturi
 ### V5 — To'liq versiya
 
 ![V5 demo](assets/v5.gif)
+
+### V6 — To'liq versiya
+
+![V5 demo](assets/v6.gif)
+
+### V7 — To'liq versiya
+
+![V5 demo](assets/v7.gif)
 
 ---
 

@@ -7,6 +7,7 @@ char operation = '+';
 
 while(true)
 {
+	Console.Clear();
   Console.WriteLine("\n╔══════════════════════════════╗");
   Console.WriteLine("║          CalString           ║");
   Console.WriteLine("╠══════════════════════════════╣");
@@ -27,6 +28,8 @@ while(true)
 	{
 		Console.Write("Ifodani kiriting: ");
 		expression = Console.ReadLine()!;
+
+		expression = expression.Replace(" ", "");	
 	}
 
   switch(option)

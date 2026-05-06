@@ -14,14 +14,15 @@ while(true)
   Console.WriteLine("║ 2. V2 │ +  va  -             ║");
   Console.WriteLine("║ 3. V3 │ + - * /              ║");
   Console.WriteLine("║ 4. V4 │ Ko'p xonali (2 son)  ║");
-  Console.WriteLine("║ 5. V5 │ Ko'p xonali (to'liq) ║");
+  Console.WriteLine("║ 5. V5 │ Ko'p xonali          ║");
+	Console.WriteLine("║ 6. V6 │ Ko'p xonali (qavs)   ║");
   Console.WriteLine("║ 0.    │ Chiqish              ║");
   Console.WriteLine("╚══════════════════════════════╝");
 
   Console.Write("Tanlang: ");
   string? option = Console.ReadLine();
 
-	if(option == "1" || option == "2" || option == "3" || option == "4" || option == "5")
+	if(option == "1" || option == "2" || option == "3" || option == "4" || option == "5" || option == "6")
 	{
 		Console.Write("Ifodani kiriting: ");
 		expression = Console.ReadLine()!;
@@ -144,6 +145,7 @@ while(true)
       }
     case "5":
       {
+
 				for(index = 0; index < expression.Length; index++)
 				{
 					switch(expression[index])
@@ -221,6 +223,209 @@ while(true)
 
         break;
       }
+		case "6":
+			{
+				string fullExpression = expression;
+				int openIndex = -1;
+				int closeIndex = -1;
+				bool isWithParentheses = true;
+				string innerExpression = string.Empty;
+
+				while(isWithParentheses)
+				{
+					openIndex = -1;
+					closeIndex = -1;
+
+					for(int i = 0; i < fullExpression.Length; i++)
+					{
+						if(fullExpression[i] == '(')
+						{
+							openIndex = i;
+						}
+					}
+
+					if (openIndex != -1)
+					{
+						for(int j = openIndex; j < fullExpression.Length; j++)
+						{
+							if(fullExpression[j] == ')')
+							{
+								closeIndex = j;
+
+								sum = 0;
+								lastNumber = 0;
+								currentNumber = 0;
+								operation = '+';
+								innerExpression = fullExpression.Substring(openIndex + 1, closeIndex - openIndex - 1);
+
+								for(index = 0; index < innerExpression.Length; index++)
+								{
+									switch(innerExpression[index])
+									{
+										case '+':
+										case '-':
+										case '*':
+										case '/':
+											{
+												switch (operation)
+												{
+													case '+':
+														{
+															sum += lastNumber;
+															lastNumber = currentNumber;
+															break;
+														}
+													case '-':
+														{
+															sum += lastNumber;
+															lastNumber = -currentNumber;
+															break;
+														}
+													case '*':
+														{
+															lastNumber *= currentNumber;
+															break;
+														}
+													case '/':
+														{
+															lastNumber /= currentNumber;
+															break;
+														}
+												}
+
+												operation = innerExpression[index];
+												currentNumber = 0;
+												break;
+											}
+										default:
+											{
+												currentNumber = currentNumber * 10 + (innerExpression[index] - '0');
+												break;
+											}
+									}
+								}
+
+								switch (operation)
+								{
+									case '+':
+										{
+											sum += lastNumber;
+											lastNumber = currentNumber;
+											break;
+										}
+									case '-':
+										{
+											sum += lastNumber;
+											lastNumber = -currentNumber;
+											break;
+										}
+									case '*':
+										{
+											lastNumber *= currentNumber;
+											break;
+										}
+									case '/':
+										{
+											lastNumber /= currentNumber;
+											break;
+										}
+								}
+
+								sum += lastNumber;
+
+								fullExpression = $"{fullExpression.Substring(0, openIndex)}{sum}{fullExpression.Substring(closeIndex+1)}";
+
+								break;
+							}
+
+						}
+					} 
+					else
+					{
+						sum = 0;
+						lastNumber = 0;
+						currentNumber = 0;
+						operation = '+';
+						isWithParentheses = false;
+
+						for(index = 0; index < fullExpression.Length; index++)
+						{
+							switch(fullExpression[index])
+							{
+								case '+':
+								case '-':
+								case '*':
+								case '/':
+									{
+										switch (operation)
+										{
+											case '+':
+												{
+													sum += lastNumber;
+													lastNumber = currentNumber;
+													break;
+												}
+											case '-':
+												{
+													sum += lastNumber;
+													lastNumber = -currentNumber;
+													break;
+												}
+											case '*':
+												{
+													lastNumber *= currentNumber;
+													break;
+												}
+											case '/':
+												{
+													lastNumber /= currentNumber;
+													break;
+												}
+										}
+
+										operation = fullExpression[index];
+										currentNumber = 0;
+										break;
+									}
+								default:
+									{
+										currentNumber = currentNumber * 10 + (fullExpression[index] - '0');
+										break;
+									}
+							}
+						}
+
+						switch (operation)
+						{
+							case '+':
+								{
+									sum += lastNumber;
+									lastNumber = currentNumber;
+									break;
+								}
+							case '-':
+								{
+									sum += lastNumber;
+									lastNumber = -currentNumber;
+									break;
+								}
+							case '*':
+								{
+									lastNumber *= currentNumber;
+									break;
+								}
+							case '/':
+								{
+									lastNumber /= currentNumber;
+									break;
+								}
+						}
+
+						sum += lastNumber;
+					}
+				}
+				break;
+			}
   }
 
 	Console.WriteLine($"{expression}={sum}\n");

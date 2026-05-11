@@ -16,17 +16,17 @@ do
 
 	string fullExpression = expression;
 
-	while(hasParanthesis(fullExpression))
+	while(HasParanthesis(fullExpression))
 	{
-		fullExpression = calculateParanthesis(fullExpression);
+		fullExpression = CalculateParanthesis(fullExpression);
 	}
 
-	while (hasPower(fullExpression))
+	while (HasPower(fullExpression))
 	{
-		fullExpression = calculatePower(fullExpression);
+		fullExpression = CalculatePower(fullExpression);
 	}
 
-	sum = calculate(fullExpression);
+	sum = Calculate(fullExpression);
 
 	Console.WriteLine($"{expression}={sum}\n");
 
@@ -37,7 +37,7 @@ do
 	confirmation = Console.ReadLine()!;
 } while(confirmation.ToLower() == "ha");
 
-static (int sum, int lastNumber) calculateOperations(char operation, int sum, int lastNumber, int currentNumber)
+static (int sum, int lastNumber) CalculateOperations(char operation, int sum, int lastNumber, int currentNumber)
 {
 	switch (operation)
 	{
@@ -68,7 +68,7 @@ static (int sum, int lastNumber) calculateOperations(char operation, int sum, in
 	return (sum, lastNumber);
 }
 
-static int calculate(string expression)
+static int Calculate(string expression)
 {
 	int sum = 0;
 	int lastNumber = 0;
@@ -84,7 +84,7 @@ static int calculate(string expression)
 			case '*':
 			case '/':
 				{
-					(sum, lastNumber) = calculateOperations(operation, sum, lastNumber, currentNumber);
+					(sum, lastNumber) = CalculateOperations(operation, sum, lastNumber, currentNumber);
 
 					operation = expression[index];
 					currentNumber = 0;
@@ -98,14 +98,14 @@ static int calculate(string expression)
 		}
 	}
 
-	(sum, lastNumber) = calculateOperations(operation, sum, lastNumber, currentNumber);
+	(sum, lastNumber) = CalculateOperations(operation, sum, lastNumber, currentNumber);
 
 	sum += lastNumber;
 
 	return sum;
 }
 
-static string calculateParanthesis(string expression)
+static string CalculateParanthesis(string expression)
 {
 	int openIndex = -1;
 	int closeIndex = -1;
@@ -121,12 +121,12 @@ static string calculateParanthesis(string expression)
 
 			innerExpression = expression.Substring(openIndex + 1, closeIndex - openIndex - 1);
 
-			while(hasPower(innerExpression))
+			while(HasPower(innerExpression))
 			{
-				innerExpression = calculatePower(innerExpression);
+				innerExpression = CalculatePower(innerExpression);
 			}
 
-			int sum = calculate(innerExpression);
+			int sum = Calculate(innerExpression);
 
 			expression = $"{expression.Substring(0, openIndex)}{sum}{expression.Substring(closeIndex+1)}";
 
@@ -136,14 +136,14 @@ static string calculateParanthesis(string expression)
 	return expression;
 }
 
-static bool hasParanthesis(string expression)
+static bool HasParanthesis(string expression)
 {
 	int index = expression.LastIndexOf('(');
 
 	return index != -1;
 }
 
-static string calculatePower(string expression)
+static string CalculatePower(string expression)
 {
 	int currentNumber = 0;
 	int lastNumber = 0;
@@ -205,7 +205,7 @@ static string calculatePower(string expression)
 	return expression;
 }
 
-static bool hasPower(string expression)
+static bool HasPower(string expression)
 {
 	int index = expression.LastIndexOf('^');
 
